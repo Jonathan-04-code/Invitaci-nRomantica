@@ -1,0 +1,184 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<title>Una invitación especial</title>
+
+<style>
+
+body{
+margin:0;
+height:100vh;
+display:flex;
+justify-content:center;
+align-items:center;
+font-family:'Poppins',sans-serif;
+background:linear-gradient(135deg,#ffd6e7,#fff2cc);
+overflow:hidden;
+}
+
+/* tarjeta */
+
+.card{
+background:white;
+padding:40px;
+border-radius:25px;
+box-shadow:0 20px 50px rgba(0,0,0,0.25);
+text-align:center;
+animation:aparecer 1.5s ease;
+max-width:380px;
+z-index:10;
+}
+
+@keyframes aparecer{
+0%{opacity:0; transform:translateY(40px);}
+100%{opacity:1; transform:translateY(0);}
+}
+
+h1{
+color:#e75480;
+margin-bottom:10px;
+}
+
+p{
+color:#444;
+font-size:18px;
+line-height:1.5;
+}
+
+/* botones */
+
+.btn{
+padding:12px 25px;
+border:none;
+border-radius:30px;
+margin:10px;
+font-size:16px;
+cursor:pointer;
+transition:0.3s;
+}
+
+.si{
+background:#e75480;
+color:white;
+}
+
+.si:hover{
+transform:scale(1.1);
+box-shadow:0 5px 20px rgba(0,0,0,0.2);
+}
+
+.no{
+background:#eee;
+}
+
+.no:hover{
+transform:translateX(40px);
+}
+
+/* flores flotando */
+
+.flower{
+position:absolute;
+font-size:25px;
+animation:flotar 10s linear infinite;
+opacity:0.8;
+}
+
+@keyframes flotar{
+0%{transform:translateY(110vh) rotate(0deg);}
+100%{transform:translateY(-10vh) rotate(360deg);}
+}
+
+/* café flotando */
+
+.coffee{
+position:absolute;
+font-size:24px;
+animation:flotarCafe 12s linear infinite;
+opacity:0.8;
+}
+
+@keyframes flotarCafe{
+0%{transform:translateY(-10vh);}
+100%{transform:translateY(110vh);}
+}
+
+</style>
+</head>
+
+<body>
+
+<div class="card">
+
+<h1>Hola ☕🌷</h1>
+
+<p>
+Estaba pensando en un plan sencillo pero bonito:
+</p>
+
+<p>
+🚶‍♂️ Caminar un rato<br>
+🏛️ Visitar un museo<br>
+🍦 Y terminar con un heladito
+</p>
+
+<p>
+Y claro… tal vez hablar un poco de café ☕  
+porque sé que eres experta en eso 😄
+</p>
+
+<p>
+¿Qué dices, te animas?
+</p>
+
+<button class="btn si" onclick="alert('Perfecto 😄 entonces ya tenemos plan!')">
+Sí, vamos 😊
+</button>
+
+<button class="btn no">
+Mmm… déjame pensarlo
+</button>
+
+</div>
+
+<script>
+
+/* flores */
+
+const flores=["🌷","🌸","🌹","💐"];
+
+for(let i=0;i<25;i++){
+
+let flower=document.createElement("div");
+flower.className="flower";
+flower.innerHTML=flores[Math.floor(Math.random()*flores.length)];
+
+flower.style.left=Math.random()*100+"vw";
+flower.style.animationDuration=(6+Math.random()*6)+"s";
+flower.style.fontSize=(20+Math.random()*20)+"px";
+
+document.body.appendChild(flower);
+
+}
+
+/* cafés */
+
+for(let i=0;i<12;i++){
+
+let coffee=document.createElement("div");
+coffee.className="coffee";
+coffee.innerHTML="☕";
+
+coffee.style.left=Math.random()*100+"vw";
+coffee.style.animationDuration=(8+Math.random()*6)+"s";
+coffee.style.fontSize=(22+Math.random()*18)+"px";
+
+document.body.appendChild(coffee);
+
+}
+
+</script>
+
+</body>
+</html>
