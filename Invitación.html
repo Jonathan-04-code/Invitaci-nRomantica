@@ -2,183 +2,412 @@
 <html lang="es">
 <head>
 <meta charset="UTF-8">
-<title>Una invitación especial</title>
-
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Una invitación especial ☕</title>
+<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600&family=Dancing+Script:wght@600&display=swap" rel="stylesheet">
 <style>
+*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
 
-body{
-margin:0;
-height:100vh;
-display:flex;
-justify-content:center;
-align-items:center;
-font-family:'Poppins',sans-serif;
-background:linear-gradient(135deg,#ffd6e7,#fff2cc);
-overflow:hidden;
+body {
+  min-height: 100vh;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  font-family: 'Poppins', sans-serif;
+  overflow: hidden;
+  background: #12021a;
 }
 
-/* tarjeta */
-
-.card{
-background:white;
-padding:40px;
-border-radius:25px;
-box-shadow:0 20px 50px rgba(0,0,0,0.25);
-text-align:center;
-animation:aparecer 1.5s ease;
-max-width:380px;
-z-index:10;
+canvas#bg {
+  position: fixed;
+  inset: 0;
+  width: 100%; height: 100%;
+  pointer-events: none;
+  z-index: 0;
 }
 
-@keyframes aparecer{
-0%{opacity:0; transform:translateY(40px);}
-100%{opacity:1; transform:translateY(0);}
+/* ── Card ── */
+.card {
+  position: relative;
+  z-index: 10;
+  background: rgba(255,255,255,0.97);
+  padding: 44px 40px 36px;
+  border-radius: 28px;
+  box-shadow:
+    0 30px 70px rgba(0,0,0,0.55),
+    0 0 0 1px rgba(255,255,255,0.08),
+    inset 0 1px 0 rgba(255,255,255,0.9);
+  text-align: center;
+  max-width: 400px;
+  width: 90%;
+  animation: entrada 1s cubic-bezier(.34,1.56,.64,1) both;
 }
 
-h1{
-color:#e75480;
-margin-bottom:10px;
+@keyframes entrada {
+  from { opacity:0; transform: scale(0.75) translateY(30px); }
+  to   { opacity:1; transform: scale(1)    translateY(0);    }
 }
 
-p{
-color:#444;
-font-size:18px;
-line-height:1.5;
+.icon-header {
+  font-size: 46px;
+  line-height: 1;
+  margin-bottom: 10px;
+  display: block;
+  animation: latido 2s ease-in-out infinite;
 }
 
-/* botones */
-
-.btn{
-padding:12px 25px;
-border:none;
-border-radius:30px;
-margin:10px;
-font-size:16px;
-cursor:pointer;
-transition:0.3s;
+@keyframes latido {
+  0%,100% { transform: scale(1);    }
+  50%      { transform: scale(1.12); }
 }
 
-.si{
-background:#e75480;
-color:white;
+h1 {
+  font-family: 'Dancing Script', cursive;
+  font-size: 30px;
+  color: #c2185b;
+  margin-bottom: 4px;
 }
 
-.si:hover{
-transform:scale(1.1);
-box-shadow:0 5px 20px rgba(0,0,0,0.2);
+.line {
+  width: 50px; height: 3px;
+  background: linear-gradient(90deg, #f48fb1, #c2185b, #f48fb1);
+  border-radius: 2px;
+  margin: 10px auto 18px;
 }
 
-.no{
-background:#eee;
+.intro {
+  font-size: 15px;
+  color: #555;
+  line-height: 1.75;
+  margin-bottom: 16px;
 }
 
-.no:hover{
-transform:translateX(40px);
+.plan {
+  background: linear-gradient(135deg, #fff0f7, #fffbee);
+  border: 1px solid #fce4ec;
+  border-radius: 18px;
+  padding: 16px 20px;
+  text-align: left;
+  margin-bottom: 16px;
 }
 
-/* flores flotando */
-
-.flower{
-position:absolute;
-font-size:25px;
-animation:flotar 10s linear infinite;
-opacity:0.8;
+.plan-item {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  padding: 5px 0;
+  font-size: 14.5px;
+  color: #444;
+  line-height: 1.5;
 }
 
-@keyframes flotar{
-0%{transform:translateY(110vh) rotate(0deg);}
-100%{transform:translateY(-10vh) rotate(360deg);}
+.plan-item .ico { font-size: 20px; flex-shrink: 0; }
+
+.note {
+  font-size: 13.5px;
+  color: #999;
+  font-style: italic;
+  margin-bottom: 20px;
 }
 
-/* café flotando */
-
-.coffee{
-position:absolute;
-font-size:24px;
-animation:flotarCafe 12s linear infinite;
-opacity:0.8;
+.question {
+  font-size: 17px;
+  font-weight: 500;
+  color: #333;
+  margin-bottom: 22px;
 }
 
-@keyframes flotarCafe{
-0%{transform:translateY(-10vh);}
-100%{transform:translateY(110vh);}
+/* ── Buttons ── */
+.btns { display: flex; justify-content: center; gap: 14px; flex-wrap: wrap; }
+
+.btn-si {
+  padding: 13px 32px;
+  background: linear-gradient(135deg, #e91e8c, #c2185b);
+  color: white;
+  border: none;
+  border-radius: 50px;
+  font-family: 'Poppins', sans-serif;
+  font-size: 16px;
+  font-weight: 500;
+  cursor: pointer;
+  box-shadow: 0 6px 24px rgba(194,24,91,.45);
+  transition: transform .2s, box-shadow .2s;
 }
 
+.btn-si:hover {
+  transform: scale(1.07) translateY(-2px);
+  box-shadow: 0 10px 32px rgba(194,24,91,.55);
+}
+
+.btn-no {
+  padding: 11px 24px;
+  background: #f0f0f0;
+  color: #aaa;
+  border: none;
+  border-radius: 50px;
+  font-family: 'Poppins', sans-serif;
+  font-size: 14px;
+  cursor: pointer;
+  user-select: none;
+  transition: background .2s;
+}
+
+.btn-no:hover { background: #e8e8e8; }
+
+.counter {
+  min-height: 20px;
+  margin-top: 14px;
+  font-size: 12.5px;
+  color: #bbb;
+  font-style: italic;
+}
+
+/* ── Celebration overlay ── */
+#celebration {
+  display: none;
+  position: fixed;
+  inset: 0;
+  background: rgba(10,0,18,0.88);
+  z-index: 200;
+  justify-content: center;
+  align-items: center;
+}
+
+#celebration.show {
+  display: flex;
+  animation: fadeIn .4s ease;
+}
+
+@keyframes fadeIn { from { opacity:0; } to { opacity:1; } }
+
+.cel-card {
+  background: white;
+  border-radius: 28px;
+  padding: 50px 40px;
+  text-align: center;
+  max-width: 380px;
+  width: 90%;
+  animation: popIn .6s cubic-bezier(.34,1.56,.64,1);
+}
+
+@keyframes popIn {
+  from { transform: scale(.5); opacity:0; }
+  to   { transform: scale(1);  opacity:1; }
+}
+
+.cel-card .big {
+  font-size: 64px;
+  display: block;
+  margin-bottom: 12px;
+  animation: wiggle 3s ease-in-out infinite alternate;
+}
+
+@keyframes wiggle {
+  from { transform: rotate(-8deg) scale(1);    }
+  to   { transform: rotate(8deg)  scale(1.08); }
+}
+
+.cel-card h2 {
+  font-family: 'Dancing Script', cursive;
+  font-size: 38px;
+  color: #c2185b;
+  margin-bottom: 10px;
+}
+
+.cel-card p {
+  font-size: 16px;
+  color: #555;
+  line-height: 1.85;
+}
 </style>
 </head>
-
 <body>
 
+<canvas id="bg"></canvas>
+
 <div class="card">
+  <span class="icon-header">☕🌷</span>
+  <h1>Hola, tengo una propuesta</h1>
+  <div class="line"></div>
 
-<h1>Hola ☕🌷</h1>
+  <p class="intro">
+    Estaba pensando en un plan sencillo,<br>
+    de esos que terminan siendo los mejores:
+  </p>
 
-<p>
-Estaba pensando en un plan sencillo pero bonito:
-</p>
+  <div class="plan">
+    <div class="plan-item"><span class="ico">🚶‍♂️</span><span>Caminar sin prisa, sin destino fijo</span></div>
+    <div class="plan-item"><span class="ico">🏛️</span><span>Perdernos un rato en un museo</span></div>
+    <div class="plan-item"><span class="ico">🍦</span><span>Terminar con helado (sin excusas)</span></div>
+    <div class="plan-item"><span class="ico">☕</span><span>Y hablar largo y tendido de café</span></div>
+  </div>
 
-<p>
-🚶‍♂️ Caminar un rato<br>
-🏛️ Visitar un museo<br>
-🍦 Y terminar con un heladito
-</p>
+  <p class="note">porque sé que cuando hablas de café hay mucho que aprender 😄</p>
 
-<p>
-Y claro… tal vez hablar un poco de café ☕  
-porque sé que eres experta en eso 😄
-</p>
+  <p class="question">¿Te animas?</p>
 
-<p>
-¿Qué dices, te animas?
-</p>
+  <div class="btns">
+    <button class="btn-si" onclick="celebrar()">Sí, vamos 😊</button>
+    <button class="btn-no" id="noBtn" onmouseover="escapar()" onclick="escapar()">Mejor no…</button>
+  </div>
 
-<button class="btn si" onclick="alert('Perfecto 😄 entonces ya tenemos plan!')">
-Sí, vamos 😊
-</button>
+  <p class="counter" id="counter"></p>
+</div>
 
-<button class="btn no">
-Mmm… déjame pensarlo
-</button>
-
+<div id="celebration">
+  <div class="cel-card">
+    <span class="big">🎉</span>
+    <h2>¡Ya tenemos plan!</h2>
+    <p>Va a estar muy chido, te lo prometo 😄<br>
+    ☕ + 🍦 + buena compañía = perfecto</p>
+  </div>
 </div>
 
 <script>
+// ── Background canvas ──────────────────────────────────────────────────
+const canvas = document.getElementById('bg');
+const ctx    = canvas.getContext('2d');
+let W, H;
 
-/* flores */
+function resize() {
+  W = canvas.width  = window.innerWidth;
+  H = canvas.height = window.innerHeight;
+}
+resize();
+window.addEventListener('resize', resize);
 
-const flores=["🌷","🌸","🌹","💐"];
+const ITEMS = ['🌸','🌷','💕','✨','☕','🌹','💫','🌺'];
 
-for(let i=0;i<25;i++){
-
-let flower=document.createElement("div");
-flower.className="flower";
-flower.innerHTML=flores[Math.floor(Math.random()*flores.length)];
-
-flower.style.left=Math.random()*100+"vw";
-flower.style.animationDuration=(6+Math.random()*6)+"s";
-flower.style.fontSize=(20+Math.random()*20)+"px";
-
-document.body.appendChild(flower);
-
+class Particle {
+  constructor(randomY) { this.reset(); if (randomY) this.y = Math.random() * H; }
+  reset() {
+    this.x      = Math.random() * W;
+    this.y      = H + 30;
+    this.emoji  = ITEMS[Math.floor(Math.random() * ITEMS.length)];
+    this.size   = 14 + Math.random() * 14;
+    this.speed  = 0.35 + Math.random() * 0.65;
+    this.alpha  = 0.1 + Math.random() * 0.45;
+    this.angle  = Math.random() * Math.PI * 2;
+    this.dAngle = (Math.random() - 0.5) * 0.012;
+    this.swayA  = (Math.random() - 0.5) * 0.5;
+    this.swayF  = 0.008 + Math.random() * 0.014;
+    this.t      = Math.random() * 300;
+  }
+  update() {
+    this.y -= this.speed;
+    this.x += Math.sin(this.t * this.swayF) * this.swayA;
+    this.angle += this.dAngle;
+    this.t++;
+    if (this.y < -40) this.reset();
+  }
+  draw() {
+    ctx.save();
+    ctx.globalAlpha = this.alpha;
+    ctx.font = this.size + 'px serif';
+    ctx.translate(this.x, this.y);
+    ctx.rotate(this.angle);
+    ctx.fillText(this.emoji, -this.size / 2, this.size / 2);
+    ctx.restore();
+  }
 }
 
-/* cafés */
+const particles = Array.from({ length: 40 }, (_, i) => new Particle(true));
 
-for(let i=0;i<12;i++){
+(function loop() {
+  ctx.clearRect(0, 0, W, H);
+  const g = ctx.createLinearGradient(0, 0, W, H);
+  g.addColorStop(0, '#1a0828');
+  g.addColorStop(0.5, '#2a0a1e');
+  g.addColorStop(1, '#0f0218');
+  ctx.fillStyle = g;
+  ctx.fillRect(0, 0, W, H);
+  particles.forEach(p => { p.update(); p.draw(); });
+  requestAnimationFrame(loop);
+})();
 
-let coffee=document.createElement("div");
-coffee.className="coffee";
-coffee.innerHTML="☕";
+// ── No button escape ───────────────────────────────────────────────────
+let noCount = 0;
+let noFixed = false;
+const noBtn  = document.getElementById('noBtn');
+const counter = document.getElementById('counter');
 
-coffee.style.left=Math.random()*100+"vw";
-coffee.style.animationDuration=(8+Math.random()*6)+"s";
-coffee.style.fontSize=(22+Math.random()*18)+"px";
+const msgs = [
+  null,
+  'Ese botón no funciona muy bien… 😏',
+  '¿En serio? Prueba el otro 😄',
+  'Creo que ese botón está en modo coqueto',
+  'El universo claramente te está diciendo algo 😂',
+  'Vamos, el Sí está esperándote 🌷',
+];
 
-document.body.appendChild(coffee);
+function escapar() {
+  noCount++;
 
+  if (!noFixed) {
+    const r = noBtn.getBoundingClientRect();
+    noBtn.style.position = 'fixed';
+    noBtn.style.margin   = '0';
+    noBtn.style.left     = r.left + 'px';
+    noBtn.style.top      = r.top  + 'px';
+    noFixed = true;
+    noBtn.getBoundingClientRect(); // force reflow
+  }
+
+  const pad = 80;
+  const bw  = noBtn.offsetWidth  || 130;
+  const bh  = noBtn.offsetHeight || 45;
+  noBtn.style.transition = 'left .22s ease, top .22s ease';
+  noBtn.style.left = pad + Math.random() * (window.innerWidth  - bw - pad * 2) + 'px';
+  noBtn.style.top  = pad + Math.random() * (window.innerHeight - bh - pad * 2) + 'px';
+
+  const msg = msgs[Math.min(noCount, msgs.length - 1)];
+  counter.textContent = msg || '';
 }
 
+// ── Celebration ────────────────────────────────────────────────────────
+function celebrar() {
+  document.getElementById('celebration').classList.add('show');
+  launchConfetti();
+}
+
+function launchConfetti() {
+  const cc = document.createElement('canvas');
+  cc.style.cssText = 'position:fixed;inset:0;width:100%;height:100%;pointer-events:none;z-index:300;';
+  document.body.appendChild(cc);
+  cc.width = window.innerWidth; cc.height = window.innerHeight;
+  const cx = cc.getContext('2d');
+
+  const colors = ['#e91e8c','#f48fb1','#ffd700','#ffffff','#ff69b4','#ff1493','#ffb6c1'];
+  const bits = Array.from({ length: 150 }, () => ({
+    x:     Math.random() * cc.width,
+    y:    -20 - Math.random() * 300,
+    w:     5  + Math.random() * 7,
+    h:     9  + Math.random() * 6,
+    color: colors[Math.floor(Math.random() * colors.length)],
+    vy:    1.5 + Math.random() * 4,
+    vx:    (Math.random() - 0.5) * 3,
+    angle: Math.random() * Math.PI * 2,
+    da:    (Math.random() - 0.5) * 0.18,
+  }));
+
+  (function anim() {
+    cx.clearRect(0, 0, cc.width, cc.height);
+    let any = false;
+    bits.forEach(b => {
+      b.y += b.vy; b.x += b.vx; b.angle += b.da;
+      if (b.y < cc.height + 20) any = true;
+      cx.save();
+      cx.globalAlpha = Math.max(0, 1 - b.y / (cc.height * 1.1));
+      cx.translate(b.x, b.y);
+      cx.rotate(b.angle);
+      cx.fillStyle = b.color;
+      cx.fillRect(-b.w / 2, -b.h / 2, b.w, b.h);
+      cx.restore();
+    });
+    if (any) requestAnimationFrame(anim);
+    else cc.remove();
+  })();
+}
 </script>
-
 </body>
 </html>
